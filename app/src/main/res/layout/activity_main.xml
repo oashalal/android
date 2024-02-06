@@ -12,8 +12,45 @@
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, World!"
+        android:text="Calculator"
         android:textSize="24sp"
-        android:layout_centerInParent="true" />
-
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"/>
+        
+    <EditText
+        android:id="@+id/edit_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите a"
+        android:layout_margin="15dp"/>
+    <EditText
+        android:id="@+id/edit_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите b"
+        android:layout_margin="15dp"/>
+    <EditText
+        android:id="@+id/edit_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите c"
+        android:layout_margin="15dp"/>
+    
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Считать"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
+    
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Корни:"
+        android:textSize="24sp"
+        android:layout_margin="16dp"/>
+        
 </LinearLayout>
