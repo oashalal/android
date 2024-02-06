@@ -16,26 +16,26 @@
         android:textSize="24sp"
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"/>
+        android:layout_marginTop="16dp"/>
         
     <EditText
         android:id="@+id/edit_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите a"
-        android:layout_margin="15dp"/>
+        android:layout_marginTop="15dp"/>
     <EditText
         android:id="@+id/edit_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите b"
-        android:layout_margin="15dp"/>
+        android:layout_marginTop="15dp"/>
     <EditText
         android:id="@+id/edit_c"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Введите c"
-        android:layout_margin="15dp"/>
+        android:layout_marginTop="15dp"/>
     
     <Button
         android:id="@+id/button"
@@ -43,7 +43,10 @@
         android:layout_height="wrap_content"
         android:text="Считать"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_paddingLeft="20dp"
+        android:layout_paddingRight="20dp"
+        android:background="#0090FF"/>
     
     <TextView
         android:id="@+id/result"
