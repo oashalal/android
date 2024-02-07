@@ -1,59 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="20dp"
-    tools:context=".MainActivity">
-    
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calculator"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
-        
-    <EditText
-        android:id="@+id/edit_a"
+    tools:context=".AndroidLauncher">
+
+<com.jme3.view.surfaceview.JmeSurfaceView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/glView" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите a"
-        android:layout_marginTop="15dp"/>
-    <EditText
-        android:id="@+id/edit_b"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите b"
-        android:layout_marginTop="15dp"/>
-    <EditText
-        android:id="@+id/edit_c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите c"
-        android:layout_marginTop="15dp"/>
-    
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Считать"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:backgroundTint="#0090FF"/>
-    
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Корни:"
-        android:textSize="24sp"
-        android:layout_margin="16dp"/>
-        
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_surface"
+            android:padding="20dp"
+            android:layout_gravity="center"
+            android:text="Press Me - Native View"
+            android:textColor="@color/black" />
+    </LinearLayout>
+</RelativeLayout>
