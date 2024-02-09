@@ -1,177 +1,49 @@
-plugins {
-    id 'application'
-    id "de.undercouch.download" version "5.1.0"
-    id "io.github.0ffz.github-packages" version "1.2.1" // Plugin for anonymous inclusion of artifacts hosted in github package registry
-}
+sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../assets"]
 
-group 'com.oashalal.game'
-version '1.0.0'
-mainClassName = 'com.oashalal.game.desktopmodule.DesktopLauncher'
-String dependenciesString = ""
+project.ext.mainClassName = "com.oashalal.game.DesktopLauncher"
+project.ext.assetsDir = new File("../assets")
 
-java {
-    sourceCompatibility = '17'
-    targetCompatibility = '17'
-}
+import org.gradle.internal.os.OperatingSystem
 
-application {
-    if (System.getProperty("os.name").toLowerCase().contains("mac")) {
-        applicationDefaultJvmArgs = ['-XstartOnFirstThread'] // this is when using a Mac as a development machine which requires the AppKit main UI thread to be used for GUI applications
+tasks.register('run', JavaExec) {
+    dependsOn classes
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+
+    if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
+        // Required to run on macOS
+        jvmArgs += "-XstartOnFirstThread"
     }
 }
 
-ext.jmonkeyengineVersion = '3.6.1-stable'
-
-dependencies {
-    implementation project(path: ':game')
-    implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
-    implementation "org.jmonkeyengine:jme3-effects:" + jmonkeyengineVersion
-    implementation "org.jmonkeyengine:jme3-lwjgl3:" + jmonkeyengineVersion
-    implementation "org.jmonkeyengine:jme3-desktop:" + jmonkeyengineVersion
-
+tasks.register('debug', JavaExec) {
+    dependsOn classes
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+    debug = true
 }
-distZip {
-    //having a degenerate folder within the dist zip complicates generating the other zips
-    eachFile { file ->
-        String path = file.relativePath
-        file.setPath(path.substring(path.indexOf("/") + 1, path.length()))
+
+tasks.register('dist', Jar) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes 'Main-Class': project.mainClassName
     }
-    includeEmptyDirs(false)
-}
-
-//See https://api.adoptium.net/v3/assets/feature_releases/11/ga?image_type=jre for jre urls
-def windowsJreUrl = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.6%2B10/OpenJDK17U-jre_x64_windows_hotspot_17.0.6_10.zip"
-def linuxJreUrl = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.6%2B10/OpenJDK17U-jre_x64_linux_hotspot_17.0.6_10.tar.gz"
-def macJreUrl = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.6%2B10/OpenJDK17U-jre_x64_mac_hotspot_17.0.6_10.tar.gz"
-
-
-task downloadWindowsJre(type: Download) {
-    src windowsJreUrl
-    dest new File(buildDir, '/jres/windowsJre.zip')
-    overwrite false
-}
-
-task downloadAndUnzipWindowsJre(dependsOn: downloadWindowsJre, type: Copy) {
-    from zipTree(downloadWindowsJre.dest)
-    into "${buildDir}/jres/windowsJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-}
-
-task buildWindowsDistribution(dependsOn: [distZip, downloadAndUnzipWindowsJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Mygame.bat"), zipTree(distZip.archiveFile), "${buildDir}/jres/windowsJre"
-    into new File(buildDir, 'distributions/Mygame-windows')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipWindowsDistribution( dependsOn:buildWindowsDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Mygame-windows.zip"
-    destinationDirectory = file("$buildDir/distributions")
-    from "$buildDir/distributions/Mygame-windows"
+    with jar
 }
 
 
-task downloadLinuxJre(type: Download) {
-    src linuxJreUrl
-    dest new File(buildDir, '/jres/linuxJre.tar.gz')
-    overwrite false
-}
+dist.dependsOn classes
 
-task downloadAndUnzipLinuxJre(dependsOn: downloadLinuxJre, type: Copy) {
-    from tarTree(downloadLinuxJre.dest)
-    into "${buildDir}/jres/linuxJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
-    }
-}
-
-task buildLinuxDistribution(dependsOn: [distZip, downloadAndUnzipLinuxJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Mygame.sh"){
-        fileMode 0755
-    }
-    from zipTree(distZip.archiveFile)
-    from "${buildDir}/jres/linuxJre"
-    into new File(buildDir, 'distributions/Mygame-linux')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipLinuxDistribution( dependsOn:buildLinuxDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Mygame-linux.tar.gz"
-    destinationDirectory = file("$buildDir/distributions")
-    from ("$buildDir/distributions/Mygame-linux"){
-      include('**.sh')
-      include('**/java')
-      fileMode 0755
-    }
-    from ("$buildDir/distributions/Mygame-linux"){
-        exclude('**.sh')
-        exclude('**/java')
-    }
-}
-
-
-task downloadMacJre(type: Download) {
-    src macJreUrl
-    dest new File(buildDir, '/jres/macJre.tar.gz')
-    overwrite false
-}
-
-task downloadAndUnzipMacJre(dependsOn: downloadMacJre, type: Copy) {
-    from tarTree(downloadMacJre.dest)
-    into "${buildDir}/jres/macJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
-    }
-}
-
-task buildMacDistribution(dependsOn: [distZip, downloadAndUnzipMacJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Mygame.command"){
-        fileMode 0755
-    }
-    from zipTree(distZip.archiveFile) 
-    from "${buildDir}/jres/macJre"
-    into new File(buildDir, 'distributions/Mygame-mac')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipMacDistribution( dependsOn:buildMacDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Mygame-mac.tar.gz"
-    destinationDirectory = file("$buildDir/distributions")
-    from ("$buildDir/distributions/Mygame-mac"){
-      include('**.command')
-      include('**/java')
-      fileMode 0755
-    }
-    from ("$buildDir/distributions/Mygame-mac"){
-        exclude('**.command')
-        exclude('**/java')
-    }
-}
-
-task buildAllDistributions{
-    group 'distribution'
-    dependsOn 'zipWindowsDistribution'
-    dependsOn 'zipLinuxDistribution'
-    dependsOn 'zipMacDistribution'
-
-    doLast {
-        println("Distributions created in build/distributions folder")
-    }
-}
-
+eclipse.project.name = appName + "-desktop"
