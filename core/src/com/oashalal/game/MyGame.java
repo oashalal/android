@@ -11,8 +11,9 @@ import com.badlogic.gdx.math.Vector3;
 public class MyGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	int x = 300;
-	int y = 200;
+	OrthographicCamera camera;
+	float x = 300;
+	float y = 200;
 	
 	@Override
 	public void create () {
