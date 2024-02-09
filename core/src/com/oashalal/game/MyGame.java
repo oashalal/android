@@ -54,15 +54,15 @@ public class MyGame extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 1, 1, 1);
 		
-		camera.update();
+		//camera.update();
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        batch.setProjectionMatrix(camera.combined);
+        //batch.setProjectionMatrix(camera.combined);
         
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
+            //camera.unproject(touchPos);
             x = touchPos.x;
             y = touchPos.y;
         }
