@@ -7,10 +7,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class MyGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Stage stage;
 	OrthographicCamera camera;
 	float x = 300;
 	float y = 200;
@@ -19,8 +27,27 @@ public class MyGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+        stage = new Stage(new ScreenViewport());
+		Gdx.input.setInputProcessor(stage);
+		
+		Button button = new TextButton("Вернуть",mySkin,"small");
+		button.setSize(180,60);
+		button.setPosition(100, 50);
+		button.addListener(new InputListener(){
+			@Override
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+			}
+			@Override
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				MyGame.this.x = 300;
+				MyGame.this.y = 200;
+				return true;
+			}
+		});
+		stage.addActor(button);
 	}
 
 	@Override
@@ -43,6 +70,9 @@ public class MyGame extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, x, y);
 		batch.end();
+		
+		stage.act();
+		stage.draw();
 	}
 	
 	@Override
