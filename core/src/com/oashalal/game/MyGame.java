@@ -73,7 +73,7 @@ public class MyGame extends ApplicationAdapter {
 		batch.draw(img, x, y);
 		batch.end();
 		
-		stage.act();
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
 	
