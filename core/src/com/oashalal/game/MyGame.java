@@ -29,8 +29,8 @@ public class MyGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 		camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
-        stage = new Stage(new ScreenViewport());
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        stage = new Stage(new ScreenViewport(camera));
 		Gdx.input.setInputProcessor(stage);
 		
 		Button button = new TextButton("Вернуть",mySkin,"small");
@@ -39,6 +39,8 @@ public class MyGame extends ApplicationAdapter {
 		button.addListener(new InputListener(){
 			@Override
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+			    MyGame.this.x = 300;
+				MyGame.this.y = 200;
 			}
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -54,10 +56,10 @@ public class MyGame extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 1, 1, 1);
 		
-		//camera.update();
+		camera.update();
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
@@ -80,4 +82,9 @@ public class MyGame extends ApplicationAdapter {
 		batch.dispose();
 		img.dispose();
 	}
+	
+	@Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
 }
