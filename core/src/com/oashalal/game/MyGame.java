@@ -28,7 +28,7 @@ public class MyGame extends ApplicationAdapter {
 	    height = Gdx.graphics.getHeight();
 	    
 		batch = new SpriteBatch();
-		Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		Skin mySkin = new Skin(Gdx.files.internal("skin/cage-skin.json"));
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
@@ -44,6 +44,7 @@ public class MyGame extends ApplicationAdapter {
 		for (int i = 0; i<8; i++){
 		    for (int j = 0; j<8 ; j++){
 		        TextButton textButton = new TextButton(Integer.toString(i*8 + j), mySkin, "default");
+		        textButton.setSize((width - 100)/8, (width - 100)/8);
 		        textButton.addListener(new InputListener(){ 
 		        	@Override
 		        	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
