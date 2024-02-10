@@ -43,18 +43,18 @@ public class MyGame extends ApplicationAdapter {
 		
 		for (int i = 0; i<8; i++){
 		    for (int j = 0; j<8 ; j++){
-		        Button button = new TextButton(Integer.toString(i*8 + j), mySkin, "default");
-		        button.addListener(new InputListener(){ 
+		        TextButton textButton = new TextButton(Integer.toString(i*8 + j), mySkin, "default");
+		        textButton.addListener(new InputListener(){ 
 		        	@Override
 		        	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 		        	}
         			@Override
         			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-        				button.setText("0");
+        				textButton.setText("0");
         				return true;
         			}
         		});
-        		table.add(button);
+        		table.add(textButton);
 		    }
 		    table.row();
 		}
@@ -78,7 +78,6 @@ public class MyGame extends ApplicationAdapter {
 	public void dispose () {
 	    stage.dispose();
 		batch.dispose();
-		img.dispose();
 	}
 	
 	@Override
