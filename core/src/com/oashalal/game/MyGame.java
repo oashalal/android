@@ -28,7 +28,7 @@ public class MyGame extends ApplicationAdapter {
 	    
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		//Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 		//camera = new OrthographicCamera();
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(new ScreenViewport());
@@ -63,13 +63,13 @@ public class MyGame extends ApplicationAdapter {
         // coordinate system specified by the camera.
         //batch.setProjectionMatrix(camera.combined);
         
-        /*if(Gdx.input.isTouched()) {
+        if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             //camera.unproject(touchPos);
             x = touchPos.x;
             y = touchPos.y;
-        }*/
+        }
 
 		batch.begin();
 		batch.draw(img, x, y);
