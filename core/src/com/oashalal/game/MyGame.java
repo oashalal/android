@@ -28,7 +28,7 @@ public class MyGame extends ApplicationAdapter {
 	    height = Gdx.graphics.getHeight();
 	    
 		batch = new SpriteBatch();
-		Skin mySkin = new Skin(Gdx.files.internal("skin/cage-skin.json"));
+		Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);

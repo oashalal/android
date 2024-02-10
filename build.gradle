@@ -1,3 +1,18 @@
+project.ext.texturePacker = [ "assets/input", "assets/output", "cage-skin" ]
+
+// Import the texture packer
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+// Add a new task that packs the textures for you
+task texturePacker {
+  doLast {
+    if (project.ext.has('texturePacker')) {
+      logger.info "Calling TexturePacker: "+texturePacker
+      TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+    }
+  }
+}
+
 buildscript {
     
 
@@ -10,8 +25,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.2'
-        
-
+        classpath "com.badlogicgames.gdx:gdx-tools:1.12.1"
     }
 }
 
