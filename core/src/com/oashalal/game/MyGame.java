@@ -1,12 +1,10 @@
 package com.oashalal.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -27,7 +25,7 @@ public class MyGame extends ApplicationAdapter {
 	public void create () {
 	    
 	    width = Gdx.graphics.getWidth();
-	    height = Gdx.graphics.getHeight()
+	    height = Gdx.graphics.getHeight();
 	    
 		batch = new SpriteBatch();
 		Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -39,7 +37,7 @@ public class MyGame extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(stage);
 		
 		Table table = new Table();
-		table.setSize(width - 100, width - 100)
+		table.setSize(width - 100, width - 100);
 		table.setPosition(width/2 - table.getWidth()/2, height/2 - table.getHeight()/2);
 		stage.addActor(table);
 		
