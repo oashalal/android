@@ -14,43 +14,52 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MyGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
 	Stage stage;
 	OrthographicCamera camera;
-	float x = 300;
-	float y = 200;
+	int width;
+	int height;
 	
 	@Override
 	public void create () {
 	    
+	    width = Gdx.graphics.getWidth();
+	    height = Gdx.graphics.getHeight()
+	    
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 		Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		
 		camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, width, height);
+        
         stage = new Stage(new ScreenViewport(camera));
 		Gdx.input.setInputProcessor(stage);
 		
-		Button button = new TextButton("Вернуть",mySkin,"default");
-		button.setSize(180,60);
-		button.setPosition(100, 50);
-		button.addListener(new InputListener(){
-			@Override
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-			    MyGame.this.x = 300;
-				MyGame.this.y = 200;
-			}
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				MyGame.this.x = 300;
-				MyGame.this.y = 200;
-				return true;
-			}
-		});
-		stage.addActor(button);
+		Table table = new Table();
+		table.setSize(width - 100, width - 100)
+		table.setPosition(width/2 - table.getWidth()/2, height/2 - table.getHeight()/2);
+		stage.addActor(table);
+		
+		for (int i = 0; i<8; i++){
+		    for (int j = 0; j<8 ; j++){
+		        Button button = new TextButton(Integer.toString(i*8 + j), mySkin, "default");
+		        button.addListener(new InputListener(){ 
+		        	@Override
+		        	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+		        	}
+        			@Override
+        			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+        				button.setText("0");
+        				return true;
+        			}
+        		});
+        		table.add(button);
+		    }
+		    table.row();
+		}
 	}
 
 	@Override
@@ -63,18 +72,6 @@ public class MyGame extends ApplicationAdapter {
         // coordinate system specified by the camera.
         batch.setProjectionMatrix(camera.combined);
         
-        if(Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-            x = touchPos.x;
-            y = touchPos.y;
-        }
-
-		batch.begin();
-		batch.draw(img, x, y);
-		batch.end();
-		
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
