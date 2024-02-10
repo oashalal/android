@@ -28,13 +28,13 @@ public class MyGame extends ApplicationAdapter {
 	    
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+		//Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 		//camera = new OrthographicCamera();
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 		
-		Button button = new TextButton("Вернуть",mySkin,"small");
+		/*Button button = new TextButton("Вернуть",mySkin,"small");
 		button.setSize(180,60);
 		button.setPosition(100, 50);
 		button.addListener(new InputListener(){
@@ -50,7 +50,7 @@ public class MyGame extends ApplicationAdapter {
 				return true;
 			}
 		});
-		stage.addActor(button);
+		stage.addActor(button);*/
 	}
 
 	@Override
