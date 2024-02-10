@@ -25,6 +25,7 @@ public class MyGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+	    try{
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
@@ -50,10 +51,14 @@ public class MyGame extends ApplicationAdapter {
 			}
 		});
 		stage.addActor(button);
+	    } catch(Exception e){
+	        
+	    }
 	}
 
 	@Override
 	public void render () {
+	    try{
 		ScreenUtils.clear(1, 1, 1, 1);
 		
 		camera.update();
@@ -75,10 +80,14 @@ public class MyGame extends ApplicationAdapter {
 		
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+	    } catch(Exception e) {
+	        
+	    }
 	}
 	
 	@Override
 	public void dispose () {
+	    stage.dispose();
 		batch.dispose();
 		img.dispose();
 	}
