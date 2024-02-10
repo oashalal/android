@@ -28,13 +28,13 @@ public class MyGame extends ApplicationAdapter {
 	    
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-		//camera = new OrthographicCamera();
-        //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        stage = new Stage(new ScreenViewport());
+		Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        stage = new Stage(new ScreenViewport(camera));
 		Gdx.input.setInputProcessor(stage);
 		
-		/*Button button = new TextButton("Вернуть",mySkin,"small");
+		Button button = new TextButton("Вернуть",mySkin,"default");
 		button.setSize(180,60);
 		button.setPosition(100, 50);
 		button.addListener(new InputListener(){
@@ -50,7 +50,7 @@ public class MyGame extends ApplicationAdapter {
 				return true;
 			}
 		});
-		stage.addActor(button);*/
+		stage.addActor(button);
 	}
 
 	@Override
@@ -58,15 +58,15 @@ public class MyGame extends ApplicationAdapter {
 	    
 		ScreenUtils.clear(1, 1, 1, 1);
 		
-		//camera.update();
+		camera.update();
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            //camera.unproject(touchPos);
+            camera.unproject(touchPos);
             x = touchPos.x;
             y = touchPos.y;
         }
