@@ -1,0 +1,13 @@
+
+cage-skin.png
+size: 128, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+green
+  rotate: false
+  xy: 2, 2
+  size: 92, 92
+  orig: 92, 92
+  offset: 0, 0
+  index: -1

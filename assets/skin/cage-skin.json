@@ -1,7 +1,4 @@
 {
-    com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
-        img: { file: green.png }
-    },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
         default-font: {
             file: default.fnt
@@ -23,9 +20,9 @@
     },
     com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
         default: {
-            down: default-round-down,
-            up: img, 
-            font: default-font, 
+            down: green,
+            up: green,
+            font: default-font,
             fontColor: black
         }
     },
