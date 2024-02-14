@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             for(int j = 0; j<8; j++){
                 Button button = new Button(this);
                 button.setText(Integer.toString(i*8+j));
+                button.setBackground(getResources().getDrawable(R.drawable.button));
                 grid.addView(button);
             }
         }
