@@ -19,15 +19,15 @@ public class MainActivity extends AppCompatActivity {
         
         grid = findViewById(R.id.grid);
         
-        grid.setHeight(grid.getWidth());
-        
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
                 Button button = new Button(this);
                 button.setText(Integer.toString(i*8+j));
                 button.setBackground(getResources().getDrawable(R.drawable.button));
-                button.setMinimumWidth(grid.getColumnWidth());
-                button.setMinimumHeight(grid.getColumnWidth());           
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.width = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                params.height = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                button.setLayoutParams(params);
                 grid.addView(button);
             }
         }
