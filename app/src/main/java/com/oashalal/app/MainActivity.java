@@ -19,16 +19,23 @@ public class MainActivity extends AppCompatActivity {
         
         grid = findViewById(R.id.grid);
         
+        int pWidth = grid.getWidth();
+        int pHeight = grid.getHeight();
+        int numOfCol = grid.getColumnCount();
+        int numOfRow = grid.getRowCount();
+        
+        int width = pWidth / numOfCol;
+        int height =  pHeight / numOfRow;
+        
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
                 Button button = new Button(this);
                 button.setText(Integer.toString(i*8+j));
                 button.setBackground(getResources().getDrawable(R.drawable.button));
-                GridLayout.LayoutParams params = 
-                    new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), 
-                    GridLayout.spec(GridLayout.UNDEFINED, 1f)); 
-                button.setLayoutParams(params);
-                grid.addView(button);
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.width = width;
+                params.height = height;
+                grid.addView(button, params);
             }
         }
     }
