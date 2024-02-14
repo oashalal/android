@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Button button = new Button(this);
                 button.setText(Integer.toString(i*8+j));
                 button.setBackground(getResources().getDrawable(R.drawable.button));
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.width = width;
-                params.height = height;
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams(GridLayout.spec(0, 1f), GridLayout.spec(0, 1f));
                 grid.addView(button, params);
             }
         }
