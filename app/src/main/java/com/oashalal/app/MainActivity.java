@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
                 Button button = new Button(this);
                 button.setText(Integer.toString(i*8+j));
                 button.setBackground(getResources().getDrawable(R.drawable.button));
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.width = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-                params.height = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                GridLayout.LayoutParams params = 
+                    GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), 
+                    GridLayout.spec(GridLayout.UNDEFINED, 1f)); 
                 button.setLayoutParams(params);
                 grid.addView(button);
             }
