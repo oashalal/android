@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="17dp"
     android:gravity="center"
     tools:context=".MainActivity">
 
     <GridLayout
         android:id="@+id/grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:rowCount="8"
         android:columnCount="8"
         app:layout_constraintDimensionRatio="1:1">
