@@ -1,9 +1,9 @@
 package com.oashalal.app;
 
-import android.widget.Button;
+import androidx.appcompat.widget.AppCompatButton;
 import android.content.Context;
 
-public class Tile extends Button{
+public class Tile extends AppCompatButton{
     
     public int value;
     public boolean mined = false;
