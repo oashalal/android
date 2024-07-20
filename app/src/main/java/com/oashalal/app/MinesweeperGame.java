@@ -104,6 +104,8 @@ public class MinesweeperGame {
         Tile tile = board[y][x];
         if (!tile.flagged && tile.mined){
             tile.setText("GG");
+            tile.opened = true;
+            tile.update();
         }
         if (tile.value > 0 && tile.value < 9){
             tile.opened = true;

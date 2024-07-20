@@ -35,7 +35,7 @@ public class Tile extends AppCompatButton{
     }
     
     public void update() {
-        if (mined) {
+        if (flagged) {
             setBackground(colors.get(10));
             setText("");
         } else if (!opened) {
@@ -43,7 +43,6 @@ public class Tile extends AppCompatButton{
             setText("");
         } else if (value == 0) {
             setBackground(colors.get(0));
-            setText("");
         } else {
             setBackground(colors.get(value));
             setText(Integer.toString(value));
