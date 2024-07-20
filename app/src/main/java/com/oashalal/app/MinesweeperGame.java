@@ -97,6 +97,7 @@ public class MinesweeperGame {
             return;
         } else if(!tile.opened){
             tile.flagged = !tile.flagged;
+            tile.update();
         }
     }
     
