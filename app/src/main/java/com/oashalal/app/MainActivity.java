@@ -21,14 +21,12 @@ public class MainActivity extends AppCompatActivity {
         grid = findViewById(R.id.grid);
         
         MinesweeperGame game = new MinesweeperGame(8, 8, this);
-        game.init(10, 4, 4);
         Tile[][] board = game.getBoard();
         
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
                 Tile tile = board[i][j];
-                tile.setText(tile.toString());
-                tile.setBackground(getResources().getDrawable(R.drawable.button));
+                tile.update();
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams(GridLayout.spec(i, 1f), GridLayout.spec(j, 1f));
                 params.width = 0;
                 params.height = 0;

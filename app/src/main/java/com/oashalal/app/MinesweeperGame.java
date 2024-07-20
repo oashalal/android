@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Arrays;
 import com.oashalal.app.Tile;
 import android.content.Context;
+import android.view.View;
 
 public class MinesweeperGame {
     
@@ -14,7 +15,7 @@ public class MinesweeperGame {
                                     {1, -1}, {1, 0}, {1, 1}
     };
     
-    private boolean first = true;
+    private boolean firstClick = true;
     
     public MinesweeperGame(int width, int height, Context context){
         board = new Tile[width][height];
@@ -22,6 +23,17 @@ public class MinesweeperGame {
         for (int y=0; y<8; y++){
             for (int x=0; x<8; x++){
                 board[y][x] = new Tile(x, y, 0, context);
+                board[y][x].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (firstClick){
+                            init(10, x, y);
+                            firstClick = false;
+                        } else {
+                            click(x, y);
+                        }
+                    }
+                });
             }
         }
     }
@@ -76,8 +88,8 @@ public class MinesweeperGame {
     
     public void click(int x, int y){
         Tile tile = board[y][x];
-        if (first || (tile.opened && tile.value == getMineCount(x, y))){
-            first = false;
+        if (firstClick || (tile.opened && tile.value == getMineCount(x, y))){
+            firstClick = false;
             for (int i=0; i<cells.length; i++){
                 try {
                     tile = board[y + cells[i][0]][x + cells[i][1]];
