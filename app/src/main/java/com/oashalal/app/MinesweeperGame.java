@@ -26,12 +26,7 @@ public class MinesweeperGame {
                 board[y][x].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (firstClick){
-                            init(10, x, y);
-                            firstClick = false;
-                        } else {
-                            click(x, y);
-                        }
+                        clickTile(((Tile)v).tileX, ((Tile)v).tileY);
                     }
                 });
             }
@@ -108,13 +103,24 @@ public class MinesweeperGame {
     private void open(int x, int y){
         Tile tile = board[y][x];
         if (!tile.flagged && tile.mined){
-            tile.value = 9;
+            throw new Exception("loos");
         }
         if (tile.value > 0 && tile.value < 9){
             tile.opened = true;
+            tile.update();
             return;
         }
         tile.opened = true;
+        tile.update();
         click(x, y);
+    }
+    
+    public void clickTile(int x, int y) {
+        if (firstClick){
+            init(10, x, y);
+            firstClick = false;
+        } else {
+            click(x, y);
+        }
     }
 }

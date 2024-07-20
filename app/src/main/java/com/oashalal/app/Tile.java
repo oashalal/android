@@ -13,11 +13,16 @@ public class Tile extends AppCompatButton{
     public boolean flagged = false;
     public boolean opened = false;
     
+    public int tileX;
+    public int tileY;
+    
     private static ArrayList<Drawable> colors = new ArrayList<Drawable>();
     
     public Tile(int x, int y, int value, Context context){
         super(context);
         this.value = value;
+        tileX = x;
+        tileY = y;
         if (colors.size() == 0)
             addColors(context);
     }
@@ -30,7 +35,10 @@ public class Tile extends AppCompatButton{
     }
     
     public void update() {
-        if (!opened) {
+        if (mined) {
+            setBackground(colors.get(10));
+            setText("");
+        } else if (!opened) {
             setBackground(colors.get(9));
             setText("");
         } else if (value == 0) {
@@ -53,5 +61,6 @@ public class Tile extends AppCompatButton{
         colors.add(context.getResources().getDrawable(R.drawable.tile7));
         colors.add(context.getResources().getDrawable(R.drawable.tile8));
         colors.add(context.getResources().getDrawable(R.drawable.closed_tile));
+        colors.add(context.getResources().getDrawable(R.drawable.flag));
     }
 }
