@@ -81,7 +81,7 @@ public class MinesweeperGame {
         return mineCount;
     }
     
-    public void click(int x, int y){
+    public void click(int x, int y) {
         Tile tile = board[y][x];
         if (firstClick || (tile.opened && tile.value == getMineCount(x, y))){
             firstClick = false;
@@ -103,7 +103,7 @@ public class MinesweeperGame {
     private void open(int x, int y){
         Tile tile = board[y][x];
         if (!tile.flagged && tile.mined){
-            throw new Exception("loos");
+            tile.setText("GG");
         }
         if (tile.value > 0 && tile.value < 9){
             tile.opened = true;
